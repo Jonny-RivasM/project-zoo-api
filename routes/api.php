@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});*/
+
+Route::post('login', 'App\Http\Controllers\UserController@login');
+Route::post('register', 'App\Http\Controllers\UserController@store');
+Route::group(['middleware' => 'auth:api'], function(){
+    //Route::resource('users',\App\Http\Controllers\UserController::Class);
+    Route::get('users','App\Http\Controllers\UserController@index');
+    Route::put('details/{id}','App\Http\Controllers\UserController@update');
+    Route::get('details/{id}','App\Http\Controllers\UserController@show');
 });
